@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="puddingto_for_internal_developer">
+
+  <apis>
+
+    <api id="API_ID">
+    
+    	<policies>
+    		<usageLimit name="DAILY">
+				<duration>1D</duration>
+				<maxCount>5000</maxCount>
+				<condition>absolute</condition>
+    		</usageLimit>
+    	</policies>
+    </api>
+     
+  </apis>
+  
+  <policies>
+   	<usageLimit name="MONTYLY">
+		<duration>1M</duration>
+		<maxCount>100000</maxCount>
+		<condition>absolute</condition>
+   	</usageLimit>  
+  </policies>
+  
+</package>

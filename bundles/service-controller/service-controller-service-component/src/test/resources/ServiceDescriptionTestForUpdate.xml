@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+	<name>DataForIntegrationTest</name>
+	<version>1</version>
+	<resource>
+		<owner>user</owner>
+		<authURL>http://localhost/doAuth</authURL>
+	</resource>
+	<api-list>
+		<api routingMethod="Direct">
+			<id>11a24a3d-8774-11e1-b2be-f0def154de37</id>
+			<service-api type="REST" protocol="HTTP1.0">
+				<id>2342146a-8772-11e1-a8c6-f0def154de37</id>
+				<name>TestServiceApi</name>
+				<method>GET</method>
+				<pathTemplate>/ServiceFront</pathTemplate>
+				<params>
+					<param name="ParameterForServiceAPI" />
+				</params>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<id>2342146d-8772-11e1-a8c6-f0def154de37</id>
+				<name>TestPartnerApi</name>
+				<uri>218.234.32.207/denny_test/appletree/v1/0/Bus/Lane/Search.asp</uri>
+				<method>GET</method>
+				<content-type>application/xml</content-type>
+				<user>kth</user>
+				<password>123456789</password>
+				<signature-encoding>SHA256(timestamp+{password}+"static string")</signature-encoding>
+				<params>
+					<param name="ParameterForPartnerAPI" />
+				</params>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>				
+				<parameter>
+					<id>11a24a3a-8774-11e1-b2be-f0def154de37</id>
+					<map from="ParameterForServiceAPI" to="ParameterForPartnerAPI" />
+				</parameter>
+			</mapping>
+		</api>
+	</api-list>
+
+</Service>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+    <name>AroTrafficInfo</name> <!-- Partner 가 정의 -->
+    <version>1</version>
+    <resource>
+       <owner>partner</owner> <!-- user (이용자), partner (service 제공자가 resource 를 소유함) -->
+       <authURL></authURL> <!-- 인증 URL (user가 resource owner 일 경우) -->
+    </resource>
+    <api-list>
+        <api routingMethod="Direct">
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getBusLane</name>
+                <method>GET</method>
+                <pathTemplate>/BusLane/attr1/{attr1}/{attr2}</pathTemplate>
+                <params>
+                    <param name="stationID"/>
+                    <param name="param2"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getAroBusLane</name>
+                <uri>http://dev.odsay.com/denny_test/appletree/v1/0/Bus/station/Search.asp</uri>
+                <method>GET</method>
+                <content-type>application/xml</content-type>
+                <user></user>
+                <password></password>
+                <signature-encoding></signature-encoding>
+                <params>
+                    <param name="stationName"/>
+                    <param name="stationClass"/>
+                    <param name="SvcID">
+                    	<default type="literal">f78480bc1c06734607e4c7107d0642f3</default>
+                    </param>
+                </params>
+                <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="stationID" to="stationName"/>
+                </parameter>
+                <result>
+                </result>
+            </mapping>
+        </api>
+    </api-list>
+
+
+</Service>

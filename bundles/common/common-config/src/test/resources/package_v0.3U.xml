@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="packageName2">
+  <apis>
+  
+  	<!-- Service APIs -->
+    <api id="2341ed58-8772-11e1-a8c6-f0def154de37">
+    
+    	<!-- Service API's Policy -->
+    	<policies>
+    		<!-- Design Policy -->
+    		<usageLimit id="policyID1" name="Month2">
+				<duration>1M</duration>
+				<maxCount>100000</maxCount>
+				<condition>absolute</condition>
+    		</usageLimit>
+    		<usageTerm id="policyID2" name="termSamplePolicy1"/>
+    	</policies>
+    </api>
+    
+    <api id="2341ed59-8772-11e1-a8c6-f0def154de37">
+    	<policies>
+    		<usageLimit name="Basic2">
+				<duration>10M</duration>
+				<maxCount>1000000</maxCount>
+				<condition>relative</condition>
+    		</usageLimit>
+    		<usageTerm id="policyID3" name="termSamplePolicy2"/>
+    	</policies>
+    </api>   
+     
+  </apis>
+  
+  <!-- Package's Policy -->
+  <policies>
+   	<usageTerm id="policyID4" name="termSamplePolicy3"/>
+  </policies>
+</package>

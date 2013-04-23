@@ -1,0 +1,9 @@
+요 프로젝트는 DB query에 사용된 실제 값과 가져온 실제 값을 로그로 남기기 위하여 생성되었다.
+단지 log4jdbc-remix 라이브러리를 가져다 사용하면 되겠지만,
+Radix에서의 각종 id가 byte[]인 관계로 로그에는 그 값이 보여지지 않는다.
+그래서 byte[] id 값을 제대로 보여주기 위하여 수정하기 위하여 프로젝트를 생성하였다.
+
+자세한 사항은 
+Jira 이슈 http://its.kthcorp.com/browse/PNMBINDV20120100325-102
+Cofluence http://wiki.kthcorp.com/pages/viewpage.action?pageId=24548046
+를 참조한다.

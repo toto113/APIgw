@@ -1,0 +1,245 @@
+// result of /platform/services?partner_id=puddingto_admin
+{
+    "body": {"service_0": {
+        "apiList": [
+            {
+                "businessPlatformID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b",
+                "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "id": "5f29f915-c751-11e1-ade2-12313f062e84",
+                "isValid": "Y",
+                "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "parameterMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f30d6e8-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {"Radix.System.Meta.username": ["token"]},
+                    "mappingType": "PARAMETER",
+                    "partnerAPIID": "5f2bcdd7-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f2a2026-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "parameterMappingID": "5f30d6e8-c751-11e1-ade2-12313f062e84",
+                "partnerAPI": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "JSON",
+                    "id": "5f2bcdd7-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "getPhotoByUserId",
+                    "parameters": [],
+                    "protocolMeta": {
+                        "content-type": "",
+                        "method": "GET",
+                        "password": "",
+                        "signature-encoding": "",
+                        "uri": "http://openapi.pudding.to/api/v1/photos/popular.json?svc=API&token={token}",
+                        "user": ""
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "partnerAPIID": "5f2bcdd7-c751-11e1-ade2-12313f062e84",
+                "resultMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f319a39-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {},
+                    "mappingType": "RESULT",
+                    "partnerAPIID": "5f2bcdd7-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f2a2026-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "resultMappingID": "5f319a39-c751-11e1-ade2-12313f062e84",
+                "serviceAPI": {
+                    "apiKey": "api.withapi.com::GET:/puddingto/1/photos",
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "XML",
+                    "id": "5f2a2026-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "photos",
+                    "parameters": [],
+                    "policyList": [],
+                    "protocolMeta": {
+                        "method": "GET",
+                        "pathTemplate": "/photos/popular"
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "routingMethodType": "DIRECT",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "serviceAPIID": "5f2a2026-c751-11e1-ade2-12313f062e84",
+                "serviceID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b"
+            },
+            {
+                "businessPlatformID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b",
+                "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "id": "5f3c489f-c751-11e1-ade2-12313f062e84",
+                "isValid": "Y",
+                "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "parameterMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f5c05a2-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {
+                        "Radix.System.Meta.username": ["token"],
+                        "photoId": ["photoId"]
+                    },
+                    "mappingType": "PARAMETER",
+                    "partnerAPIID": "5f3d0bf1-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f3c48a0-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "parameterMappingID": "5f5c05a2-c751-11e1-ade2-12313f062e84",
+                "partnerAPI": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "JSON",
+                    "id": "5f3d0bf1-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "getUserById",
+                    "parameters": [],
+                    "protocolMeta": {
+                        "content-type": "",
+                        "method": "GET",
+                        "password": "",
+                        "signature-encoding": "",
+                        "uri": "http://openapi.pudding.to/api/v1/photos/{photoId}.json?svc=API&token={token}",
+                        "user": ""
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "partnerAPIID": "5f3d0bf1-c751-11e1-ade2-12313f062e84",
+                "resultMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f5ca1e3-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {},
+                    "mappingType": "RESULT",
+                    "partnerAPIID": "5f3d0bf1-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f3c48a0-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "resultMappingID": "5f5ca1e3-c751-11e1-ade2-12313f062e84",
+                "serviceAPI": {
+                    "apiKey": "api.withapi.com::GET:/puddingto/1/photos",
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "XML",
+                    "id": "5f3c48a0-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "photos",
+                    "parameters": [],
+                    "policyList": [],
+                    "protocolMeta": {
+                        "method": "GET",
+                        "pathTemplate": "/photos/{photo-id}"
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "routingMethodType": "DIRECT",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "serviceAPIID": "5f3c48a0-c751-11e1-ade2-12313f062e84",
+                "serviceID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b"
+            },
+            {
+                "businessPlatformID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b",
+                "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "id": "5f37dbca-c751-11e1-ade2-12313f062e84",
+                "isValid": "Y",
+                "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                "parameterMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f3a25bd-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {
+                        "Radix.System.Meta.username": ["token"],
+                        "userId": ["userId"]
+                    },
+                    "mappingType": "PARAMETER",
+                    "partnerAPIID": "5f39144c-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f37dbcb-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "parameterMappingID": "5f3a25bd-c751-11e1-ade2-12313f062e84",
+                "partnerAPI": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "JSON",
+                    "id": "5f39144c-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "getUserById",
+                    "parameters": [],
+                    "protocolMeta": {
+                        "content-type": "",
+                        "method": "GET",
+                        "password": "",
+                        "signature-encoding": "",
+                        "uri": "http://openapi.pudding.to/api/v1/users/{userId}.json?svc=API&token={token}",
+                        "user": ""
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "partnerAPIID": "5f39144c-c751-11e1-ade2-12313f062e84",
+                "resultMap": {
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "id": "5f3ae90e-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "mapping": {},
+                    "mappingType": "RESULT",
+                    "partnerAPIID": "5f39144c-c751-11e1-ade2-12313f062e84",
+                    "serviceAPIID": "5f37dbcb-c751-11e1-ade2-12313f062e84",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84"
+                },
+                "resultMappingID": "5f3ae90e-c751-11e1-ade2-12313f062e84",
+                "serviceAPI": {
+                    "apiKey": "api.withapi.com::GET:/puddingto/1/users",
+                    "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "defaultTransformType": "XML",
+                    "id": "5f37dbcb-c751-11e1-ade2-12313f062e84",
+                    "isValid": "Y",
+                    "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+                    "name": "users",
+                    "parameters": [],
+                    "policyList": [],
+                    "protocolMeta": {
+                        "method": "GET",
+                        "pathTemplate": "/users/{userId}"
+                    },
+                    "protocolType": "HTTP_v1_1",
+                    "routingMethodType": "DIRECT",
+                    "serviceID": "5f2453c4-c751-11e1-ade2-12313f062e84",
+                    "transportType": "REST"
+                },
+                "serviceAPIID": "5f37dbcb-c751-11e1-ade2-12313f062e84",
+                "serviceID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b"
+            }
+        ],
+        "businessPlatformID": "59ffa6f4-0901-4ffc-82ad-44687540ab4b",
+        "createdDate": "Fri Jul 06 10:00:10 UTC 2012",
+        "id": "5f2453c4-c751-11e1-ade2-12313f062e84",
+        "isValid": "Y",
+        "lastModifiedDate": "Fri Jul 06 10:00:10 UTC 2012",
+        "name": "puddingto",
+        "partnerID": "puddingto_admin",
+        "resourceAuthUrl": "http://openapi.pudding.to/auth/",
+        "resourceOwner": "USER",
+        "version": "1"
+    }},
+    "body_type": "MAP",
+    "messageId": "9d7be068-2c53-4b37-a249-3c812c7b78cd",
+    "status": "success"
+}

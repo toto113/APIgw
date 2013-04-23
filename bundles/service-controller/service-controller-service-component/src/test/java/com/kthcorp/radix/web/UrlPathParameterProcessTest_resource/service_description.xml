@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+	<name>ServiceForTest</name>
+	<version>1</version>
+	<resource>
+		<owner>partner</owner>
+		<authURL></authURL>
+	</resource>
+	<api-list>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getMap1</name>
+				<method>GET</method>
+				<pathTemplate>serviceApiPathTemplate0</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getMap</name>
+				<uri>partnerApiPathTemplate0</uri>
+				<method>GET</method>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="key" to="key" />
+					<map from="module" to="module" />
+				</parameter>
+			</mapping>
+		</api>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getMap2</name>
+				<method>GET</method>
+				<pathTemplate>serviceApiPathTemplate1</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getMap</name>
+				<uri>partnerApiPathTemplate1</uri>
+				<method>GET</method>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="key" to="key" />
+					<map from="module" to="module" />
+				</parameter>
+			</mapping>
+		</api>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getMap3</name>
+				<method>GET</method>
+				<pathTemplate>serviceApiPathTemplate2</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getMap</name>
+				<uri>partnerApiPathTemplate2</uri>
+				<method>GET</method>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="key" to="key" />
+					<map from="module" to="module" />
+				</parameter>
+			</mapping>
+		</api>				
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getBusLane</name>
+				<method>GET</method>
+				<pathTemplate>/BusLane/stationID/{stationID}/{param2}</pathTemplate>
+				<params>
+					<param name="stationID" />
+					<param name="param2" />
+				</params>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getAroBusLane</name>
+				<uri>http://dev.odsay.com/denny_test/appletree/v1/0/Bus/station/Search.asp?stationName={stationName}&stationClass={stationClass}&SvcID={SvcId}
+				</uri>
+				<method>GET</method>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="stationID" to="stationName" />
+					<map from="RadixMapping:Const:f78480bc1c06734607e4c7107d0642f3" to="SvcID" />
+				</parameter>
+				<result>
+				</result>
+			</mapping>
+		</api>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getMap1</name>
+				<method>GET</method>
+				<pathTemplate>/map/with/token</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getMap</name>
+				<uri>PARTNER_HOST_AND_PORT/map?token={token}</uri>
+				<method>GET</method>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="old_param_name" to="new_param_name"/>"
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+	</api-list>
+
+</Service>

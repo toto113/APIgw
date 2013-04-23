@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- <sec:http pattern="/aro"> <sec:intercept-url pattern="/aro/**" access="ROLE_ANONYMOUS" 
+		/> <sec:custom-filter ref="radixCustomFilter" after="EXCEPTION_TRANSLATION_FILTER"/> 
+		<sec:http-basic /> </sec:http> -->
+	<http pattern="/oauth/token" create-session="never"
+		authentication-manager-ref="clientAuthenticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY" />
+		<anonymous enabled="false" />
+		<http-basic />
+		<!-- include this only if you need to authenticate clients via request 
+			parameters -->
+		<custom-filter ref="clientCredentialsTokenEndpointFilter"
+			before="BASIC_AUTH_FILTER" />
+	</http>
+
+	<http access-decision-manager-ref="accessDecisionManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<intercept-url pattern="/oauth/authorize" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/oauth/**" access="ROLE_USER" />
+		<!-- intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY,DENY_OAUTH" 
+			/ -->
+		<intercept-url pattern="/**" access="ROLE_USER" />
+		<http-basic />
+		<custom-filter ref="resourceServerFilter" before="EXCEPTION_TRANSLATION_FILTER" />
+		<custom-filter ref="radixCustomFilter" after="EXCEPTION_TRANSLATION_FILTER" />
+	</http>
+
+	<bean id="radixCustomFilter"
+		class="com.kthcorp.radix.security.oauth2.provider.filter.RadixCustomAuthenticationFilter" />
+
+	<bean id="clientCredentialsTokenEndpointFilter"
+		class="org.springframework.security.oauth2.provider.filter.ClientCredentialsTokenEndpointFilter">
+		<property name="authenticationManager" ref="clientAuthenticationManager" />
+	</bean>
+
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased"
+		xmlns="http://www.springframework.org/schema/beans">
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.oauth2.provider.vote.ScopeVoter" />
+				<bean class="org.springframework.security.access.vote.RoleVoter" />
+				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<authentication-manager id="clientAuthenticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider user-service-ref="radixUserDetailsService" />
+	</authentication-manager>
+
+	<authentication-manager alias="authenticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider user-service-ref="radixUserDetailsService" />
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="${bizportal.id}" password="${bizportal.pw}"
+					authorities="ROLE_USER" />
+			</sec:user-service>
+		</sec:authentication-provider>
+	</authentication-manager>
+
+	<bean id="radixUserDetailsService"
+		class="com.kthcorp.radix.security.oauth2.provider.RadixUserDetailsService">
+		<property name="defaultAuthority" ref="defaultAuthorityBean" />
+	</bean>
+
+	<bean id="defaultAuthorityBean"
+		class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+		<constructor-arg value="ROLE_USER" />
+	</bean>
+
+	<bean id="tokenServices"
+		class="org.springframework.security.oauth2.provider.token.RandomValueTokenServices">
+		<property name="tokenStore">
+			<bean
+				class="org.springframework.security.oauth2.provider.token.JdbcTokenStore">
+				<constructor-arg ref="dataSource"></constructor-arg>
+			</bean>
+		</property>
+		<property name="supportRefreshToken" value="true" />
+		<!-- 10 seconds 4 tests -->
+		<property name="accessTokenValiditySeconds" value="31536000" />
+	</bean>
+
+	<oauth:authorization-server
+		client-details-service-ref="radixClientDetailsService"
+		token-services-ref="tokenServices"
+		user-approval-handler-ref="radixUserApprovalHandler">
+		<oauth:authorization-code />
+		<oauth:implicit />
+		<oauth:refresh-token />
+		<oauth:client-credentials />
+		<oauth:password />
+	</oauth:authorization-server>
+
+	<oauth:resource-server id="resourceServerFilter"
+		resource-id="radix" token-services-ref="tokenServices" />
+
+
+	<bean id="radixClientDetailsService"
+		class="com.kthcorp.radix.security.oauth2.provider.RadixClientDetailsService">
+		<property name="commaSeperatedResourceIds" value="radix" />
+		<property name="commaSeparatedAuthorizedGrantTypes" value="implicit" />
+		<property name="commaSeparatedAuthorities" value="ROLE_USER" />
+	</bean>
+
+
+
+	<mvc:default-servlet-handler />
+
+	<sec:global-method-security
+		pre-post-annotations="enabled" proxy-target-class="true">
+		<!--you could also wire in the expression handler up at the layer of the 
+			http filters. See https://jira.springsource.org/browse/SEC-1452 -->
+		<sec:expression-handler ref="oauthExpressionHandler" />
+	</sec:global-method-security>
+	
+	<bean id="radixUserApprovalHandler" class="com.kthcorp.radix.security.oauth2.provider.approval.RadixUserApprovalHandler"/>
+
+	<oauth:expression-handler id="oauthExpressionHandler" />
+
+</beans>

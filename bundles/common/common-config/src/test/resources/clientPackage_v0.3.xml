@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientKey>
+	<packages>
+		<package id="f63bec14-876e-11e1-a764-f0def154de37">
+			<startTimestamp>123456789</startTimestamp>
+			<endTimestamp>223456789</endTimestamp>
+		</package>
+		<package id="fbde2f97-876e-11e1-9d2f-f0def154de37">
+			<startTimestamp>223456789</startTimestamp>
+			<endTimestamp>323456789</endTimestamp>
+		</package>
+	</packages>
+</clientKey>

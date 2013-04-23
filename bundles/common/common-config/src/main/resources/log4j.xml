@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+		<param name="Encoding" value="utf-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="DailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="/var/radix/service-controller-service-component.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<param name="Encoding" value="utf-8" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="TransactionRollingFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+		  	<param name="FileNamePattern" value="/var/radix/stat/radix_transaction.%d{yyyyMMddHHmm}.log" />
+			<param name="ActiveFileName" value="/var/radix/stat/radix_transaction.log" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+	
+	<appender name="TransactionDebugFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+		  	<param name="FileNamePattern" value="/var/radix/radix_transaction_debug.%d{yyyyMMddHHmm}.log" />
+			<param name="ActiveFileName" value="/var/radix/radix_transaction_debug.log" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="TempnotiRollingFileAppender" class="org.apache.log4j.rolling.RollingFileAppender">
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+		  	<param name="FileNamePattern" value="/var/radix/tempnoti/radix_tempnoti.%d{yyyyMMddHHmm}.log" />
+			<param name="ActiveFileName" value="/var/radix/tempnoti/radix_tempnoti.log" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+	</appender>
+	
+	<!-- 로거 'transactoin'은 통계를 위한 로그를 남기는데 사용한다. 반드시 level이 info이어야 한다. -->
+	<logger name="transaction">
+		<level value="info" />
+		<appender-ref ref="TransactionRollingFileAppender" />
+	</logger>
+	  
+	<logger name="com.kthcorp.radix">
+		<level value="debug" />
+		<appender-ref ref="TransactionDebugFileAppender" />
+	</logger>
+	
+	<logger name="com.kthcorp.radix.util.test.EmbeddedMysql">
+		<level value="info" />
+		<appender-ref ref="TransactionDebugFileAppender" />
+	</logger>
+	
+	<logger name="com.kthcorp.radix.dao.hazelcast">
+		<level value="info" />
+		<appender-ref ref="TransactionDebugFileAppender" />
+	</logger>	
+	
+	<logger name="tempnoti">
+		<level value="info" />
+		<appender-ref ref="TempnotiRollingFileAppender" />
+	</logger>
+
+	<logger name="org.apache.camel" >
+		<level value="warn" />
+		<appender-ref ref="TempnotiRollingFileAppender" />
+	</logger>
+	
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+	
+	<logger name="jdbc.audit" additivity="false">
+		<level value="error" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+	
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="error" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+	
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="error" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+			
+	<logger name="jdbc.connection" additivity="false">
+		<level value="error" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</logger>
+						
+	      
+	<root>
+		<priority value="error" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DailyRollingFileAppender" />
+	</root>
+
+</log4j:configuration>

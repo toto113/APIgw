@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+	<bean id="serviceMapperBuilder" class="com.kthcorp.radix.util.ServiceMapperBuilder"
+		p:serviceMapperList-ref="serviceMapperList" />
+
+	<util:list id="serviceMapperList">
+
+		<bean class="com.kthcorp.radix.domain.route.ServiceMapper"
+		p:serviceId="PublicTransport" p:apiId="BusLaneSearch"
+		p:targetUrl="http://http://211.113.22.153:80/" />
+		
+		<bean class="com.kthcorp.radix.domain.route.ServiceMapper"
+		p:serviceId="Facebook" p:apiId="me"
+		p:targetUrl="https://graph.facebook.com/me?access_token={access_token}" />
+
+	</util:list>
+
+
+</beans>

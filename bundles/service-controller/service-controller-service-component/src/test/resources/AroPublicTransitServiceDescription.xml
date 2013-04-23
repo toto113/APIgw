@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+	<name>TourInfo</name> <!-- Partner 가 정의 -->
+	<version>
+		<major>1</major>
+		<minor>3</minor>  <!-- Partner 가 정의하되 같은 서비스가 이미 존재한다면 버전은 커야함 -->
+	</version>
+	<resource>
+		<owner>user</owner> <!-- user (이용자), partner (service 제공자가 resource 를 소유함) -->
+		<authURL>http://auth.koreatour.com/auth</authURL> <!-- 인증 URL (user가 resource owner 일 경우) -->
+	</resource>
+	<api-list>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getHotel</name>
+				<method>GET</method>
+				<pathTemplate>/hotel/{attr1}/{attr2}</pathTemplate>
+				<params>
+					<param name="param1" />
+					<param name="param2" />
+				</params>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getHotel</name>
+				<uri>api.koreatour.com:80/tourinfo/hotel.jsp</uri>
+				<method>GET</method>
+				<content-type>application/xml</content-type>
+				<user>kth</user>
+				<password>123456789</password>
+				<signature-encoding>SHA256(timestamp+{password}+"static string")</signature-encoding>
+				<params>
+					<param name="region" />
+					<param name="hotelId" />
+					<param name="reference">
+						<default type="script">random.string(16)</default>
+					</param>
+				</params>
+				<transform>XML</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="region" to="region" />
+					<map from="hotel" to="hotelId" />
+				</parameter>
+				<result>
+					<map from="region.name" to="region.pname" />
+				</result>
+			</mapping>
+		</api>
+	</api-list>
+	<orchestration>
+		<api-list>
+			<api>
+				<service-api>
+					<method>GET</method>
+					<pathTemplate>/tourlocation/hotel/</pathTemplate>
+					<params>
+						<param name="hotel" />
+					</params>
+				</service-api>
+				<scenario>
+					<!-- we need to define the description of one to many(one or more) function 
+						and their multiple calling or series calling properties -->
+				</scenario>
+			</api>
+		</api-list>
+	</orchestration>
+</Service>

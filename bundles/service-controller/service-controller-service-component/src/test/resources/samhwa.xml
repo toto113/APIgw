@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service descriptionVersion="0.3">
+    <name>MapAPI</name>
+    <version>1</version>
+ 
+    <resource>
+           <owner>partner</owner>
+    </resource>
+  
+    <api-list>
+            <api routingMethod="Direct">
+  
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getMap</name>
+                <method>GET</method>
+                <pathTemplate>/map</pathTemplate>
+                <params>
+                    <param name="key"/>
+                    <param name="module"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getMap</name>
+                <uri>http://www.withapi.com/MapAPI/serviceJSP/Auth.jsp</uri>
+                <method>GET</method>
+                <params>
+                    <param name="key"/>
+                    <param name="module"/>
+                </params>
+                <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="key" to="key"/>
+                    <map from="module" to="module" />
+                </parameter>
+            </mapping>
+        </api>
+        <api routingMethod="Direct"> 
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByPOI</name>
+                <method>GET</method>
+                <pathTemplate>/poi</pathTemplate>
+                 <params>
+                    <param name="key"/>
+                    <param name="selX"/>
+                    <param name="selY"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByPOI</name>
+                <uri>http://211.113.46.168/v1/rest/metainfo/QueryByMetaInfo.format</uri>
+                <method>GET</method>
+                <params>
+                    <param name="key"/>
+                    <param name="selX"/>
+                    <param name="selY"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                </params> 
+               <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="key" to="key"/>
+                    <map from="selX" to="selX" />
+                    <map from="selY" to="selY" />
+                    <map from="resFunc" to="resFunc" />
+                    <map from="reqType" to="reqType" />
+                    <map from="targetYear" to="targetYear" />
+                </parameter>
+            </mapping>
+        </api>
+        <api routingMethod="Direct"> 
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByBox</name>
+                <method>GET</method>
+                <pathTemplate>/box</pathTemplate>
+                 <params>
+                    <param name="key"/>
+                    <param name="left"/>
+                    <param name="bottom"/>
+                    <param name="right"/>
+                    <param name="top"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                    <param name="index"/>
+                    <param name="date"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByBox</name>
+                <uri>http://211.113.46.168/v1/rest/metainfo/QueryByMetaWindow.format</uri>
+                <method>GET</method>
+                <params>
+                    <param name="key"/>
+                    <param name="left"/>
+                    <param name="bottom"/>
+                    <param name="right"/>
+                    <param name="top"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                    <param name="index"/>
+                    <param name="date"/>
+                </params> 
+               <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="key" to="key"/>
+                    <map from="left" to="left" />
+                    <map from="bottom" to="bottom" />
+                    <map from="right" to="right" />
+                    <map from="top" to="top" />
+                    <map from="resFunc" to="resFunc" />
+                    <map from="reqType" to="reqType" />
+                    <map from="targetYear" to="targetYear" />
+                    <map from="index" to="index" />
+                    <map from="date" to="date" />
+                </parameter>
+            </mapping>
+        </api>
+         <api routingMethod="Direct"> 
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByText</name>
+                <method>GET</method>
+                <pathTemplate>text</pathTemplate>
+                 <params>
+                    <param name="key"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                    <param name="index"/>
+                    <param name="date"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getMetaByText</name>
+                <uri>http://211.113.46.168/v1/rest/metainfo/TextQuery.format</uri>
+                <method>GET</method>
+                <params>
+                    <param name="key"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                    <param name="targetYear"/>
+                    <param name="index"/>
+                    <param name="date"/>
+                </params> 
+               <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="key" to="key"/>
+                    <map from="resFunc" to="resFunc" />
+                    <map from="reqType" to="reqType" />
+                    <map from="targetYear" to="targetYear" />
+                    <map from="index" to="index" />
+                    <map from="date" to="date" />
+                </parameter>
+            </mapping>
+        </api> 
+         <api routingMethod="Direct">
+  
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>coordConvert</name>
+                <method>GET</method>
+                <pathTemplate>/convert</pathTemplate>
+                 <params>
+                    <param name="key"/>
+                    <param name="x"/>
+                    <param name="y"/>
+                    <param name="inCoordType"/>
+                    <param name="outCoordType"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>coordConvert</name>
+                <uri>URL: http://211.113.46.168/v1/rest/etc/ConvertCoord.xml</uri>
+                <method>GET</method>
+                <params>
+                    <param name="key"/>
+                    <param name="x"/>
+                    <param name="y"/>
+                    <param name="inCoordType"/>
+                    <param name="outCoordType"/>
+                    <param name="resFunc"/>
+                    <param name="reqType"/>
+                </params>
+               <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="key" to="key"/>
+                    <map from="x" to="x"/>
+                    <map from="y" to="y"/>
+                    <map from="inCoordType" to="inCoordType"/>
+                    <map from="outCoordType" to="outCoordType"/>
+                    <map from="resFunc" to="resFunc" />
+                    <map from="reqType" to="reqType" />
+                </parameter>
+            </mapping>
+        </api>        
+    </api-list>
+</Service>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+	<name>TourInfo1</name> <!-- Partner 가 정의 -->
+	<version>
+		<major>1</major>
+		<minor>3</minor>  <!-- Partner 가 정의하되 같은 서비스가 이미 존재한다면 버전은 커야함 -->
+	</version>
+	<resource>
+		<owner>user</owner> <!-- user (이용자), partner (service 제공자가 resource 를 소유함) -->
+		<authURL>http://auth.koreatour.com/auth</authURL> <!-- 인증 URL (user가 resource owner 일 경우) -->
+	</resource>
+	<api-list>
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>getHotel</name>
+				<method>GET</method>
+				<pathTemplate>/hotel/{attr1}</pathTemplate>
+	</api-list>
+</orchestration>
+</Service>

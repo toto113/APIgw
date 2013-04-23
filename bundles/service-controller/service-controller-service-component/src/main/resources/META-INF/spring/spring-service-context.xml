@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<bean id="threadSessionManagerService" class="com.kthcorp.radix.service.SessionManagerServiceImpl"
+		p:sessionManagerDao-ref="sessionManagerDaoForEhcache" />
+		
+	<bean id="sessionManagerService" class="com.kthcorp.radix.service.SessionManagerServiceImpl"
+		p:sessionManagerDao-ref="sessionManagerDaoForHazelcast" />		
+
+	<bean id="clientKeyManagerService" class="com.kthcorp.radix.service.ClientKeyManagerServiceImpl" />
+	
+	<bean id="scopeManagerrService" class="com.kthcorp.radix.service.ScopeManagerServiceImpl" />
+
+	<bean id="businessPlatformKeyManagerService"
+		class="com.kthcorp.radix.service.BusinessPlatformKeyManagerServiceImpl" />
+
+	<bean id="serviceManagerService" class="com.kthcorp.radix.service.ServiceManagerServiceImpl" />
+		
+	<bean id="packageManagerService" class="com.kthcorp.radix.service.PackageManagerServiceImpl" />
+	
+	<bean id="clientPackageManagerService" class="com.kthcorp.radix.service.ClientPackageManagerServiceImpl" />
+	
+	<bean id="policyManagerService" class="com.kthcorp.radix.service.PolicyManagerServiceImpl" />
+	
+	<bean id="scopeManagerService" class="com.kthcorp.radix.service.ScopeManagerServiceImpl"/>
+	
+	<bean id="prePolicyEnforcerService" class="com.kthcorp.radix.service.ClientPrePolicyEnforcerServiceImpl"/>
+	
+	<bean id="postPolicyEnforcerService" class="com.kthcorp.radix.service.ClientPostPolicyEnforcerServiceImpl"/>
+	
+	<bean id="tokenManagerService" class="com.kthcorp.radix.service.TokenManagerServiceImpl" />
+	
+	<bean id="packagePolicyEnforcer" class="com.kthcorp.radix.service.PackagePolicyEnforcerImpl"/>
+	
+	<bean id="servicePolicyEnforcer" class="com.kthcorp.radix.service.ServicePolicyEnforcerImpl"/>
+	
+	<tx:annotation-driven/>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="radixTransactionFactory" class="com.kthcorp.radix.transaction.RadixTransactionFactory" />
+	
+	<bean id="radixTransactionManager" class="com.kthcorp.radix.transaction.RadixTransactionManager"
+		p:radixTransactionFactory-ref="radixTransactionFactory" />
+
+	<tx:advice id="txAdvice4Log" transaction-manager="radixTransactionManager">
+ 		<tx:attributes>
+			<tx:method name="doService" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="serviceMethod" expression="execution(* com.kthcorp.radix.api.**.service.**.*Service.*(..))" />
+		<aop:pointcut id="controllerMethod"	expression="execution(* com.kthcorp.radix.web.ServiceApiController.doService(..))" />
+		<aop:pointcut id="orchestratorMethod" expression="execution(* com.kthcorp.radix.component.MessageRouteComponent.process(..))" />
+		<aop:pointcut id="adaptorMethod" expression="execution(* com.kthcorp.radix.component.adaptor.*ServiceCallComponent.doCall(..))" />
+		<aop:pointcut id="partnerMethod" expression="execution(* com.kthcorp.radix.component.adaptor.*ExecuteComponent.doRequest(..))" />
+		<aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice" />
+		<aop:advisor pointcut-ref="controllerMethod" advice-ref="txAdvice4Log" />
+		<aop:aspect id="logginAspect" ref="radixTransactionManager">
+			<aop:before pointcut-ref="controllerMethod" method="doLogServiceController" />
+			<aop:after pointcut-ref="controllerMethod" method="doLogServiceControllerAfter" />
+			<aop:after-returning pointcut-ref="controllerMethod" method="doLogControllerReturn" returning="entity" />
+			<aop:after-throwing pointcut-ref="controllerMethod" method="doLogControllerException" throwing="ex"/>
+			<aop:before pointcut-ref="orchestratorMethod" method="doLogOrchestrator"/>
+			<aop:after pointcut-ref="orchestratorMethod" method="doLogOrchestratorAfter"/>
+			<aop:before pointcut-ref="adaptorMethod" method="doLogAdaptor"/>
+			<aop:after pointcut-ref="adaptorMethod" method="doLogAdaptorAfter"/>  
+			<aop:before pointcut-ref="partnerMethod" method="doLogPartner"/>
+			<aop:after pointcut-ref="partnerMethod" method="doLogPartnerAfter"/>
+		</aop:aspect>
+	</aop:config>
+	
+  	<bean id="apiMapperService"
+		class="com.kthcorp.radix.service.RestRequestApiMapperServiceImpl" />
+
+	<bean id="restRequestMapperComponent" class="com.kthcorp.radix.component.RestRequestMapperComponent" />
+	
+	<bean id="platformServiceFactory" class="com.kthcorp.radix.service.PlatformServiceFactory"
+		p:clientKeyPlatformService-ref="clientKeyPlatformService"
+		p:packagePlatformService-ref="packagePlatformService"
+		p:servicePlatformService-ref="servicePlatformService"
+		p:tokenPlatformService-ref="tokenPlatformService"
+	/>
+	
+	<bean id="clientKeyPlatformService" class="com.kthcorp.radix.service.ClientKeyPlatformServiceImpl"/>
+	<bean id="packagePlatformService" class="com.kthcorp.radix.service.PackagePlatformServiceImpl"/>
+	<bean id="servicePlatformService" class="com.kthcorp.radix.service.ServicePlatformServiceImpl"/>
+	<bean id="tokenPlatformService" class="com.kthcorp.radix.service.TokenPlatformServiceImpl"/>
+	
+</beans>

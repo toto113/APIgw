@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:/META-INF/spring/spring-application-context.xml,
+			classpath:/META-INF/spring/spring-dao-ehcache-context.xml,			
+			classpath:/META-INF/spring/spring-service-context.xml,
+			classpath:/META-INF/spring/spring-service-component-context.xml,
+			classpath:/META-INF/spring/spring-camel-context.xml,
+			classpath:/META-INF/spring/spring-dao-mysql-context.xml,
+			classpath:/META-INF/spring/spring-dao-mybatis-context.xml,
+			classpath:/META-INF/spring/spring-dao-hazelcast-context.xml,
+			classpath:/META-INF/spring/spring-service-loader-context.xml,	
+			classpath:/META-INF/spring/spring-util-context.xml,
+			classpath:/META-INF/spring/spring-web-context.xml,					
+			classpath:/META-INF/spring/spring-security-context.xml,
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>multipartFilter</filter-name>
+		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>multipartFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>com.kthcorp.radix.security.oauth2.provider.filter.DemorableDelegatingFilterProxy</filter-class>
+		<init-param>
+			<!-- 복수일 경우 ','로 구분. 삽입된 스페이스는 무시됨 -->
+			<param-name>demoSite</param-name>
+			<param-value>developer.pudding.to</param-value>
+		</init-param>
+		<init-param>
+			<param-name>userNameForDemo</param-name>
+			<param-value>puddingtoDemoUser</param-value>
+		</init-param>	
+		<init-param>
+			<param-name>accessTokenForDemo</param-name>
+			<param-value>ACCESS-TOKEN</param-value>
+		</init-param>	
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>service-controller</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>				
+				classpath:META-INF/spring/spring-security-context.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>service-controller</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

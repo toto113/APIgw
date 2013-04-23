@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<groupId>com.kthcorp.radix</groupId>
+		<artifactId>radix-bundles-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../..</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>radix-orchestrator-util</artifactId>
+	<packaging>jar</packaging>
+	<name>Radix: Orchestrator Util</name>
+	<dependencies>
+		<!-- Configuration in common -->
+		<dependency>
+			<groupId>com.kthcorp.radix</groupId>
+			<artifactId>radix-common-config</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+		<!-- Test Configuration in common -->
+		<dependency>
+			<groupId>com.kthcorp.radix</groupId>
+			<artifactId>radix-common-config</artifactId>
+			<classifier>tests</classifier>
+			<scope>test</scope>
+			<type>jar</type>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kthcorp.radix</groupId>
+			<artifactId>radix-orchestrator-domain</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kthcorp.radix</groupId>
+			<artifactId>radix-common-util</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+</project>

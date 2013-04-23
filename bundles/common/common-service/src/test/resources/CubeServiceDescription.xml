@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service>
+    <name>Cube</name> <!-- Partner 가 정의 -->
+    <version>1</version>
+    <resource>
+       <owner>partner</owner> <!-- user (이용자), partner (service 제공자가 resource 를 소유함) -->
+       <authURL></authURL> <!-- 인증 URL (user가 resource owner 일 경우) -->
+    </resource>
+    <api-list>
+        <api routingMethod="Direct">
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getAddress</name>
+                <method>GET</method>
+                <pathTemplate>/address</pathTemplate>
+                <params>
+                    <param name="ip"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getAddress</name>
+                <uri>http://125.140.114.21/nearapi_useraccept.php</uri>
+                <method>GET</method>
+                <content-type>application/xml</content-type>
+                <user></user>
+                <password></password>
+                <signature-encoding></signature-encoding>
+                <params>
+                    <param name="user_ip"/>
+                    <param name="api_apkey">
+                    	<default type="literal">kth1333689405979</default>
+                    </param>
+                </params>
+                <transform>XML</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="ip" to="user_ip"/>
+                </parameter>
+                <result>
+                </result>
+            </mapping>
+        </api>
+        <api routingMethod="Direct">
+            <service-api type="REST" protocol="HTTP1.1">
+                <name>getNearby</name>
+                <method>GET</method>
+                <pathTemplate>/nearby</pathTemplate>
+                <params>
+                    <param name="ip"/>
+                </params>
+            </service-api>
+            <partner-api type="REST" protocol="HTTP1.1">
+                <name>getNearby</name>
+                <uri>http://125.140.114.21/nearapi_useraccept.php</uri>
+                <method>GET</method>
+                <content-type>application/xml</content-type>
+                <user></user>
+                <password></password>
+                <signature-encoding></signature-encoding>
+                <params>
+                    <param name="ip"/>
+                    <param name="key">
+                    	<default type="literal">11111174</default>
+                    </param>
+                </params>
+                <transform>JSON</transform>
+            </partner-api>
+            <mapping>
+                <parameter>
+                    <map from="ip" to="ip"/>
+                </parameter>
+                <result>
+                </result>
+            </mapping>
+        </api>
+    </api-list>
+
+<!-- 
+    <orchestration>
+        <api-list>
+            <api>
+                <service-api>
+                    <method>GET</method>
+                    <pathTemplate>/tourlocation/hotel/</pathTemplate>
+                    <params>
+                        <param name="hotel"/>
+                    </params>
+                </service-api>
+                <scenario>
+                </scenario>
+            </api>
+        </api-list>
+    </orchestration>
+-->
+</Service>

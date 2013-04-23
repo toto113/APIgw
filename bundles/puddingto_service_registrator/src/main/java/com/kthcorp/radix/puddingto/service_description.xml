@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Service descriptionVersion="0.5">
+
+	<name>puddingto</name>
+	<version>1</version>
+	
+	<resource>
+		<owner>user</owner>
+		<!-- puddingto에서는 별개의 OAuth를 사용하기에 authUrl의 설정은 의미가 없다. -->
+		<authUrl>http://openapi.pudding.to/auth/login</authUrl>
+	</resource>
+
+	<api-list>
+	
+		<!-- 5.2.01 사용자 정보 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserInfo</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>
+		
+		<!-- 5.2.02 사용자 검색  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/search</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>searchUser</name>
+				<uri>http://openapi.pudding.to/api/v1/users/search?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>
+		
+		<!-- 5.2.03 사용자 Timeline -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/timelines</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserTimelines</name>
+				<uri>http://openapi.pudding.to/api/v1/{userId}/self/timelines?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>
+		
+		<!-- 5.2.04 사용자별 사진 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/photos</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserPhotos</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/photos?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+
+				
+		<!-- 5.2.05 사용자 중복 검사  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/duplicated</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>checkUserDuplicated</name>
+				<uri>http://openapi.pudding.to/api/v1/users/duplicated?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+				
+		<!-- 5.2.06 사용자별 태그 조회  -->		
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/tags</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserTags</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/tags?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+						
+		<!-- 5.2.07 사용자별 음악태그(음악가) 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/musics</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserMusics</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/musics?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.2.08 사용자별 Location 조회 (2차 오픈 - 폐기 예정)  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/locations</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserLocations</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/locations?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+		
+		<!-- 5.2.09 사용자의 외부서비스 연동 정보 조회  -->										
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/external_services</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserExternalServiceInfos</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/external_services?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.2.10 사용자별 소식 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/self/feeds</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserFeeds</name>
+				<uri>http://openapi.pudding.to/api/v1/users/self/feeds?format={format}&token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>								
+						
+		<!-- 5.2.11 팔로윙들의 활동 소식 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/self/followings/feeds</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getFollowingsFeeds</name>
+				<uri>http://openapi.pudding.to/api/v1/users/self/followings/feeds?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>				
+			
+		<!--  5.2.12 새로운 소식 수 조회 ( 보류 - 필요 없음 ) -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>users</name>
+				<method>GET</method>
+				<pathTemplate>/users/{userId}/feeds/new_count</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getUserFeeds</name>
+				<uri>http://openapi.pudding.to/api/v1/users/{userId}/feeds/new_count?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+			
+		<!-- 5.3.1 사진 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/{photoId}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhoto</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>			
+			
+		<!-- 5.3.2 인기 사진 조회  -->	
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/popular</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPolularPhotos</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/popular</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+				</parameter>
+			</mapping>
+		</api>		
+		
+		<!-- 5.3.3 내 주변 사진 조회 ( 폐기 ) -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/nearby</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getNearbyPhotos</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/nearby?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>				
+				
+		<!-- 5.3.4 사진을 Like 한 사용자 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/{photoId}/likes</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotoLikes</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}/likes?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+
+		<!-- 5.3.5 사진에 Like 하기  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>POST</method>
+				<pathTemplate>/photos/{photoId}/likes</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>postPhotoLikes</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}/likes?token={token}</uri>
+				<method>POST</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+
+		<!-- 5.3.6 사진의 댓글 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/{photoId}/comments</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotoComments</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}/comments?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.3.7 사진에 댓글 쓰기  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>POST</method>
+				<pathTemplate>/photos/{photoId}/comments</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>postPhotoComments</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}/comments?token={token}</uri>
+				<method>POST</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+
+		<!-- 5.3.8 사진의 댓글 삭제  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>DELETE</method>
+				<pathTemplate>/photos/{photoId}/comments/{commentId}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>deletePhotoComments</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/{photoId}/comments/{commentId}?token={token}</uri>
+				<method>DELETE</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+
+		<!-- 5.3.9 태그 검색  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/tags/search</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>searchPhotoCountOfTag</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/tags/search?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.3.10 음악 태그 검색  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/musics/search</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotoCountOfMusic</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/musics/search?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>			
+		
+		<!-- 5.3.11 태그별 사진 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/by_tag/{tag}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotsByTag</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/by_tag/{tag}?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>			
+		
+		<!-- 5.3.12 음악 태그별 사진 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/search</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>searchPhotsOfMusicTag</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/search?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.3.13 감정별 사진 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>photos</name>
+				<method>GET</method>
+				<pathTemplate>/photos/by_emotions/{emotionId}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotosByEmotion</name>
+				<uri>http://openapi.pudding.to/api/v1/photos/by_emotions/{emotionId}?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>		
+
+		<!-- 5.3.14 POI 조회 (보류 - 기능 제외될 예정)  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>locations</name>
+				<method>GET</method>
+				<pathTemplate>/locations</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPoi</name>
+				<uri>http://openapi.pudding.to/api/v1/locations?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+
+		<!-- 5.3.15 POI 별 사진 조회 (보류 - 기능 제외될 예정)  -->			
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>locations</name>
+				<method>GET</method>
+				<pathTemplate>/locations/{locationId}photos</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getPhotosOfLocation</name>
+				<uri>http://openapi.pudding.to/api/v1//locations/{locationId}photos?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+		<!-- 5.3.16 감정 정보 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>emotions</name>
+				<method>GET</method>
+				<pathTemplate>/emotions/{lang}</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getEmotionInfo</name>
+				<uri>http://openapi.pudding.to/api/v1/emotions/{lang}?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>
+
+		<!-- 5.4.1 사용자의 follower 조회  -->		
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>relations</name>
+				<method>GET</method>
+				<pathTemplate>/relations/{userId}/followers</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getFollowers</name>
+				<uri>http://openapi.pudding.to/api/v1/relations/{userId}/followers?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+				
+		<!-- 5.4.2 사용자의 팔로윙 조회  -->
+		<api routingMethod="Direct">
+			<service-api type="REST" protocol="HTTP1.1">
+				<name>relations</name>
+				<method>GET</method>
+				<pathTemplate>/relations/{userId}/followings</pathTemplate>
+			</service-api>
+			<partner-api type="REST" protocol="HTTP1.1">
+				<name>getFollowings</name>
+				<uri>http://openapi.pudding.to/api/v1//relations/{userId}/followings?token={token}</uri>
+				<method>GET</method>
+				<transform>json</transform>
+			</partner-api>
+			<mapping>
+				<parameter>
+					<map from="Radix.System.Meta.user_name" to="token"/>
+				</parameter>
+			</mapping>
+		</api>	
+		
+	</api-list>
+		
+</Service>

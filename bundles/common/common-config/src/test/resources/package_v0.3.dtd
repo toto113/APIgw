@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT package (apis, policies?)>
+
+	<!ATTLIST package
+		name CDATA #REQUIRED>
+		
+	<!ELEMENT apis (api+)>
+	
+		<!ELEMENT api (policies?)>
+			<!ATTLIST api 
+				id CDATA #REQUIRED>
+	
+	<!ELEMENT policies (usageLimit*, usageTerm?)>
+		
+		<!ELEMENT usageLimit (name, duration, maxCount, condition, startTimestamp?, endTimestamp?)>
+			<!ATTLIST usageLimit 
+				id CDATA #IMPLIED>
+		
+			<!ELEMENT duration (#PCDATA)>
+			<!ELEMENT maxCount (#PCDATA)>
+			<!ELEMENT condition (#PCDATA)>
+			
+		<!ELEMENT usageTerm (name, startTimestamp?, endTimestamp?)>
+			<!ATTLIST usageTerm 
+				id CDATA #IMPLIED>
+				
+		<!ELEMENT name (#PCDATA)>
